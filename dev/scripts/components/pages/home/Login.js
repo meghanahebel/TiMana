@@ -80,7 +80,7 @@ export default class Login extends React.Component {
     render() {
         return (
             <div className = "login_container">
-            {/* SIGN UP */}
+                {/* SIGN UP */}
                 <div className="create-user">
                     <form onSubmit = {(e)=> this.createUser(e)}>
                         <label htmlFor="sign-up-email">Email <span>(or username)</span></label>
@@ -93,25 +93,27 @@ export default class Login extends React.Component {
                     </form>
                 </div>
 
-            {/* SIGN IN */}
-                <div className = "sign-in">
-                    <form onSubmit = {(e) => this.signIn(e)}>
-                        <label htmlFor="sign-in-email">Email <span>(or username)</span></label>
-                        <input type="text" name="sign-in-email" id="sign-in-email" placeholder = "e.g. sherlock.holmes@baker.com" 
-                            onChange = {(e)=>this.handleChange(e, "loginEmail")}/>
-                        <label htmlFor="sign-in-password">Password</label>
-                        <input type="password" name="sign-in-password" id="sign-in-password" placeholder = "e.g. sherlocked" 
-                            onChange = {(e)=>this.handleChange(e, "loginPassword")}/>
-                        <button className="sign-in-submit">Login</button>
-                    </form>
-                </div>
+                { this.state.signedIn ?
+                    <div className='sign-out'>
+                        <button onClick = {(e)=>this.signOut(e)}>Sign Out</button>
+                    </div>
+                :
+                    // SIGN IN
+                    <div className = 'sign-in'>
+                        <form onSubmit = {(e) => this.signIn(e)}>
+                            <label htmlFor="sign-in-email">Email <span>(or username)</span></label>
+                            <input type="text" name="sign-in-email" id="sign-in-email" placeholder = "e.g. sherlock.holmes@baker.com" 
+                                onChange = {(e)=>this.handleChange(e, "loginEmail")}/>
+                            <label htmlFor="sign-in-password">Password</label>
+                            <input type="password" name="sign-in-password" id="sign-in-password" placeholder = "e.g. sherlocked" 
+                                onChange = {(e)=>this.handleChange(e, "loginPassword")}/>
+                            <button className="sign-in-submit">Login</button>
+                        </form>
+                    </div>
+                }
 
                 <h1>{`You are logged in: ${this.state.signedIn}`}</h1>
 
-                <div className="sign-out">
-                    <button onClick={ e=>this.signOut(e)}>Sign Out</button>
-                </div>
-        
             </div>
         )
     }
