@@ -8,6 +8,7 @@ import {
 import Home from './components/pages/Home';
 import Login from './components/pages/home/Login';
 
+
 // FIREBASE
 var config = {
   apiKey: "AIzaSyCRusQmoJ1YbOKZ8g-jn5LJSwLBvft1M_A",
