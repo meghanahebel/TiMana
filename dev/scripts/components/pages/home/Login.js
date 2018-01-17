@@ -24,6 +24,18 @@ export default class Login extends React.Component {
         this.handleChange = this.handleChange.bind(this);
         this.createUser = this.createUser.bind(this);
         this.signIn = this.signIn.bind(this);
+        this.signOut = this.signOut.bind(this);
+    }
+
+    componentDidMount() {
+        firebase.auth().onAuthStateChanged((user)=> {
+            if (user) {
+                this.setState({signedIn: true});
+            }
+            else {
+                this.setState({signedIn: false});
+            }
+        })
     }
 
     handleChange(e, field) {
@@ -36,30 +48,41 @@ export default class Login extends React.Component {
         e.preventDefault();
         let email = this.state.createEmail;
         let password = this.state.createPassword;
+        console.log(email, password);
 
         firebase.auth().createUserWithEmailAndPassword(email, password)
             .catch((error) => console.log(error.code, error.message));
     } // end of createUser - creates User through firebase
 
     signIn(e) {
-        e.preventDefault()
+        e.preventDefault();
         let email = this.state.loginEmail;
         let password = this.state.loginPassword;
 
         firebase.auth().signInWithEmailAndPassword(email , password)
             .then((success) => {
                 console.log(`Logged in successfully as ${success.email}`)
-            }), (error) => {
+            }, (error) => {
                 console.log(error);
-            }
+            });
     } // end of signIn - signs in a user with email and password collected
+
+    signOut(e) {
+        e.preventDefault();
+        firebase.auth().signOut()
+            .then((success)=> {
+                console.log('Signed out!');
+            }, (error)=> {
+                console.log(error);
+            });
+    } // end of signOut - signs out user with firebase
 
     render() {
         return (
             <div className = "login_container">
             {/* SIGN UP */}
                 <div className="create-user">
-                    <form onSubmit = {(e)=> this.signIn(e)}>
+                    <form onSubmit = {(e)=> this.createUser(e)}>
                         <label htmlFor="sign-up-email">Email <span>(or username)</span></label>
                         <input type="text" name="sign-up-email" id="sign-up-email" placeholder = "e.g. sherlock.holmes@baker.com" 
                             onChange = {(e)=>this.handleChange(e, "createEmail")}/>
@@ -72,7 +95,7 @@ export default class Login extends React.Component {
 
             {/* SIGN IN */}
                 <div className = "sign-in">
-                    <form onSubmit = {(e) => this.createUser(e)}>
+                    <form onSubmit = {(e) => this.signIn(e)}>
                         <label htmlFor="sign-in-email">Email <span>(or username)</span></label>
                         <input type="text" name="sign-in-email" id="sign-in-email" placeholder = "e.g. sherlock.holmes@baker.com" 
                             onChange = {(e)=>this.handleChange(e, "loginEmail")}/>
@@ -82,6 +105,13 @@ export default class Login extends React.Component {
                         <button className="sign-in-submit">Login</button>
                     </form>
                 </div>
+
+                <h1>{`You are logged in: ${this.state.signedIn}`}</h1>
+
+                <div className="sign-out">
+                    <button onClick={ e=>this.signOut(e)}>Sign Out</button>
+                </div>
+        
             </div>
         )
     }
