@@ -7,6 +7,7 @@ import {
 
 import Home from './components/pages/Home';
 import Login from './components/pages/home/Login';
+import Navigation from './components/sub/Navigation';
 
 
 // FIREBASE
@@ -30,6 +31,7 @@ class App extends React.Component {
     return (
       <Router>
         <div>
+          <Navigation />
           <Switch>
             <Route exact path = "/" component={Home}/>
           </Switch>
