@@ -11,8 +11,9 @@ export default class Home extends React.Component {
     render() {
         return (
             <Router>
-                <div>
-                    <div>This is the Home Page</div>
+                <div className ="home-container">
+                    <h1>Welcome back to TiMana!</h1>
+                    <h2>Log in to TiMana</h2>
                     <Login />
                 </div>
             </Router>

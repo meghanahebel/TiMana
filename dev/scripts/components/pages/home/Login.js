@@ -48,7 +48,6 @@ export default class Login extends React.Component {
         e.preventDefault();
         let email = this.state.createEmail;
         let password = this.state.createPassword;
-        console.log(email, password);
 
         firebase.auth().createUserWithEmailAndPassword(email, password)
             .catch((error) => console.log(error.code, error.message));
@@ -82,7 +81,7 @@ export default class Login extends React.Component {
             <div className = "login_container">
                 {/* SIGN UP */}
                 <div className="create-user">
-                    <form onSubmit = {(e)=> this.createUser(e)}>
+                    <form className="create-user-form" onSubmit = {(e)=> this.createUser(e)}>
                         <label htmlFor="sign-up-email">Email <span>(or username)</span></label>
                         <input type="text" name="sign-up-email" id="sign-up-email" placeholder = "e.g. sherlock.holmes@baker.com" 
                             onChange = {(e)=>this.handleChange(e, "createEmail")}/>
@@ -100,7 +99,7 @@ export default class Login extends React.Component {
                 :
                     // SIGN IN
                     <div className = 'sign-in'>
-                        <form onSubmit = {(e) => this.signIn(e)}>
+                        <form className="sign-in-form" onSubmit = {(e) => this.signIn(e)}>
                             <label htmlFor="sign-in-email">Email <span>(or username)</span></label>
                             <input type="text" name="sign-in-email" id="sign-in-email" placeholder = "e.g. sherlock.holmes@baker.com" 
                                 onChange = {(e)=>this.handleChange(e, "loginEmail")}/>

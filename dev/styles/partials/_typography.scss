@@ -1,0 +1,15 @@
+$mainFont: 'Muli', sans-serif;
+$handWritingFont: 'Handlee', cursive;
+
+.handwriting {
+    font-family: $handWritingFont;
+}
+
+body {
+    font-family: $mainFont;
+}
+
+h1 {
+    font-size: 3rem;
+    font-weight: bold;
+}
