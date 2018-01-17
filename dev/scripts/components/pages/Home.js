@@ -8,6 +8,12 @@ import Login from './home/Login';
 
 export default class Home extends React.Component {
 
+    constructor() {
+        super();
+        this.state = {
+        }
+    }
+
     render() {
         return (
             <Router>

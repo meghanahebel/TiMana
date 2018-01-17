@@ -6,8 +6,9 @@ import {
   Route, Link, NavLink, Switch } from 'react-router-dom';
 
 import Home from './components/pages/Home';
-import Login from './components/pages/home/Login';
+import SignUp from './components/pages/SignUp';
 import Navigation from './components/sub/Navigation';
+
 
 
 // FIREBASE
@@ -25,6 +26,19 @@ firebase.initializeApp(config);
 class App extends React.Component {
   constructor() {
     super();
+    this.state = {
+      userID: '',
+      signedIn: false
+    }
+  }
+  
+  componentDidMount() {
+    firebase.auth().onAuthStateChanged((user) => {
+      console.log(user)
+      this.setState({
+        userID: user.uid
+      })
+    });
   }
   
   render() {
@@ -33,7 +47,8 @@ class App extends React.Component {
         <div>
           <Navigation />
           <Switch>
-            <Route exact path = "/" component={Home}/>
+            <Route exact path = "/" render={(props) => <Home {...props}  userID={this.state.userID} signedIn={this.state.signedIn} /> }/>
+            <Route exact path="/signup" component={SignUp}/>
           </Switch>
         </div>
       </Router>

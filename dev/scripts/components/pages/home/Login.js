@@ -15,14 +15,11 @@ export default class Login extends React.Component {
     constructor() {
         super();
         this.state = {
-            createEmail: '',
-            createPassword: '',
             loginEmail: '',
             loginPassword: '',
             signedIn: false,
         }
         this.handleChange = this.handleChange.bind(this);
-        this.createUser = this.createUser.bind(this);
         this.signIn = this.signIn.bind(this);
         this.signOut = this.signOut.bind(this);
     }
@@ -43,15 +40,6 @@ export default class Login extends React.Component {
         newState[field] = e.target.value;
         this.setState(newState);
     } // end of handleChange - assigns input values to state dynamically from login and sign-up forms
-
-    createUser(e) {
-        e.preventDefault();
-        let email = this.state.createEmail;
-        let password = this.state.createPassword;
-
-        firebase.auth().createUserWithEmailAndPassword(email, password)
-            .catch((error) => console.log(error.code, error.message));
-    } // end of createUser - creates User through firebase
 
     signIn(e) {
         e.preventDefault();
@@ -79,19 +67,6 @@ export default class Login extends React.Component {
     render() {
         return (
             <div className = "login_container">
-                {/* SIGN UP */}
-                <div className="create-user">
-                    <form className="create-user-form" onSubmit = {(e)=> this.createUser(e)}>
-                        <label htmlFor="sign-up-email">Email <span>(or username)</span></label>
-                        <input type="text" name="sign-up-email" id="sign-up-email" placeholder = "e.g. sherlock.holmes@baker.com" 
-                            onChange = {(e)=>this.handleChange(e, "createEmail")}/>
-                        <label htmlFor="sign-up-password">Password</label>
-                        <input type="password" name="sign-up-password" id="sign-up-password" placeholder = "e.g. sherlocked" 
-                            onChange = {(e)=>this.handleChange(e, "createPassword")}/>
-                        <button className="sign-up-submit">Sign Up</button>
-                    </form>
-                </div>
-
                 { this.state.signedIn ?
                     <div className='sign-out'>
                         <button onClick = {(e)=>this.signOut(e)}>Sign Out</button>
