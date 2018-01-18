@@ -30,24 +30,42 @@ class App extends React.Component {
       userID: '',
       signedIn: false
     }
+    this.signOut = this.signOut.bind(this);
   }
   
   componentDidMount() {
     firebase.auth().onAuthStateChanged((user) => {
-      console.log(user)
-      this.setState({
-        userID: user.uid
-      })
+      if(user) {
+        this.setState({
+          userID: user.uid,
+          signedIn: true
+        })
+      }
+      else {
+        this.setState({ signedIn: false })
+      }
     });
   }
+
+  signOut(e) {
+    e.preventDefault();
+    firebase.auth().signOut()
+      .then((success)=> {
+          console.log('Signed out!');
+      }, (error)=> {
+          console.log(error);
+      });
+  } // end of signOut - signs out user with firebase
   
+
+
   render() {
     return (
       <Router>
         <div>
           <Navigation />
           <Switch>
-            <Route exact path = "/" render={(props) => <Home {...props}  userID={this.state.userID} signedIn={this.state.signedIn} /> }/>
+            <Route exact path = "/" render={(props) => <Home {...props}  userID={this.state.userID} signedIn={this.state.signedIn} signOut = {this.signOut}/> }/>
             <Route exact path="/signup" component={SignUp}/>
           </Switch>
         </div>

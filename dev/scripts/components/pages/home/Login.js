@@ -17,23 +17,11 @@ export default class Login extends React.Component {
         this.state = {
             loginEmail: '',
             loginPassword: '',
-            signedIn: false,
         }
         this.handleChange = this.handleChange.bind(this);
         this.signIn = this.signIn.bind(this);
-        this.signOut = this.signOut.bind(this);
     }
 
-    componentDidMount() {
-        firebase.auth().onAuthStateChanged((user)=> {
-            if (user) {
-                this.setState({signedIn: true});
-            }
-            else {
-                this.setState({signedIn: false});
-            }
-        })
-    }
 
     handleChange(e, field) {
         let newState = Object.assign({}, this.state);
@@ -54,39 +42,21 @@ export default class Login extends React.Component {
             });
     } // end of signIn - signs in a user with email and password collected
 
-    signOut(e) {
-        e.preventDefault();
-        firebase.auth().signOut()
-            .then((success)=> {
-                console.log('Signed out!');
-            }, (error)=> {
-                console.log(error);
-            });
-    } // end of signOut - signs out user with firebase
-
     render() {
         return (
             <div className = "login_container">
-                { this.state.signedIn ?
-                    <div className='sign-out'>
-                        <button onClick = {(e)=>this.signOut(e)}>Sign Out</button>
-                    </div>
-                :
-                    // SIGN IN
-                    <div className = 'sign-in'>
-                        <form className="sign-in-form" onSubmit = {(e) => this.signIn(e)}>
-                            <label htmlFor="sign-in-email">Email <span>(or username)</span></label>
-                            <input type="text" name="sign-in-email" id="sign-in-email" placeholder = "e.g. sherlock.holmes@baker.com" 
-                                onChange = {(e)=>this.handleChange(e, "loginEmail")}/>
-                            <label htmlFor="sign-in-password">Password</label>
-                            <input type="password" name="sign-in-password" id="sign-in-password" placeholder = "e.g. sherlocked" 
-                                onChange = {(e)=>this.handleChange(e, "loginPassword")}/>
-                            <button className="sign-in-submit">Login</button>
-                        </form>
-                    </div>
-                }
 
-                <h1>{`You are logged in: ${this.state.signedIn}`}</h1>
+                <div className = 'sign-in'>
+                    <form className="sign-in-form" onSubmit = {(e) => this.signIn(e)}>
+                        <label htmlFor="sign-in-email">Email <span>(or username)</span></label>
+                        <input type="text" name="sign-in-email" id="sign-in-email" placeholder = "e.g. sherlock.holmes@baker.com" 
+                            onChange = {(e)=>this.handleChange(e, "loginEmail")}/>
+                        <label htmlFor="sign-in-password">Password</label>
+                        <input type="password" name="sign-in-password" id="sign-in-password" placeholder = "e.g. sherlocked" 
+                            onChange = {(e)=>this.handleChange(e, "loginPassword")}/>
+                        <button className="sign-in-submit">Login</button>
+                    </form>
+                </div>
 
             </div>
         )
