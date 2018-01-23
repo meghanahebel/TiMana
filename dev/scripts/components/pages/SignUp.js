@@ -39,7 +39,7 @@ export default class SignUp extends React.Component {
 
     render() {
         return(
-            <div className="sign-up">
+            <div className="signup-component">
 
                 <h1>Create a TiMana Account</h1>
                 <h3 className="handwriting">

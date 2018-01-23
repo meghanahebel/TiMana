@@ -2,18 +2,19 @@ nav {
     // FIXED
     position: fixed;
     top: 0;
+    left: 0;
+    right: 0;
     overflow: hidden;
-    width: 100%;
     height: 70px;
+    z-index: 100;
     // 
     padding: 20px;
     background: $mainBlue;
     color: white;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    display: block;
 
     ul {
+        float: left;
         display: flex;
         flex-direction: row;
         justify-content: space-between;

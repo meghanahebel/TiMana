@@ -12,12 +12,12 @@ export default class Navigation extends React.Component {
     
     render() {
         return (
-            <nav className="nav-signed-out">
-                <ul className="left">
+            <nav className="nav-signed-out clearfix">
+                <ul className="floatLeft">
                     <li><img src="" alt="Trello Logo Placeholder"/></li>
                     <li>TiMana</li>
                 </ul>
-                <ul className="right">
+                <ul className="floatRight">
                     <li>
                         <NavLink to="/" activeClassName="current">
                         <h3>Log In</h3>
