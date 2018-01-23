@@ -44,9 +44,11 @@ export default class Login extends React.Component {
 
     render() {
         return (
-            <div className = "login_container">
+            <div className = "login-container">
 
                 <div className = 'sign-in'>
+                    <h1>Welcome back to TiMana!</h1>
+                    <h2>Log in to TiMana</h2>
                     <form className="sign-in-form" onSubmit = {(e) => this.signIn(e)}>
                         <label htmlFor="sign-in-email">Email <span>(or username)</span></label>
                         <input type="text" name="sign-in-email" id="sign-in-email" placeholder = "e.g. sherlock.holmes@baker.com" 

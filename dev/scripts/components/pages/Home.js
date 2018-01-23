@@ -21,6 +21,7 @@ export default class Home extends React.Component {
         return (
             <Router>
                 <div className ="home-container">
+                
                     { this.props.signedIn ?
                     <div>
                         <div className='sign-out'>
@@ -29,8 +30,6 @@ export default class Home extends React.Component {
                     </div>
                     :
                     <div>
-                        <h1>Welcome back to TiMana!</h1>
-                        <h2>Log in to TiMana</h2>
                         <Login />
                     </div>
                     }
